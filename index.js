@@ -28,13 +28,13 @@ const server = http.createServer(async (req, res) => {
                     const data = `data: ${msg ? msg : new Date().toLocaleTimeString()}\n\n`;
                     res.write(data);
                     resolve();
-                }, 1000);
+                }, 100);
             });
         };
 
         // 每秒发送一次消息
         await sendEvent('Start');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 200; i++) {
             await sendEvent();
         }
         await sendEvent('End');
