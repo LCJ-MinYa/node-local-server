@@ -1,5 +1,6 @@
 import http from 'http';
 import sse from './module/sse.js';
+import xss from './module/xss.js';
 
 const server = http.createServer(async (req, res) => {
     // 设置 CORS 头
@@ -19,11 +20,16 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    if (req.url.startsWith('/xss/test')) {
+        xss(req, res);
+        return;
+    }
+
     res.writeHead(404);
     res.end();
 });
 
 // 监听端口
 server.listen(3000, () => {
-    console.log('SSE server is running at http://localhost:3000/events');
+    console.log('node server is running at http://localhost:3000');
 });
